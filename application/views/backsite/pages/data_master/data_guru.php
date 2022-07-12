@@ -7,8 +7,8 @@
 											Import
 										</button>
 										<a type="button" href="<?=$link_reset?>"  class="btn btn-danger m-b-30">Reset Data</a>
-										<a type="button" href="<?=base_url('')?>backsite/admin/barcode_laptop_siswa"  class="btn btn-danger m-b-30">coba</a>
-										<a type="button" href="<?=base_url('')?>backsite/admin/cetak"  class="btn btn-danger m-b-30">cetak</a>
+										
+										
 										<br>
 										<!-- Modal -->
 										<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

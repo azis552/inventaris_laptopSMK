@@ -15,6 +15,8 @@
         <link href="<?=base_url('')?>assets/css/metismenu.min.css" rel="stylesheet" type="text/css">
         <link href="<?=base_url('')?>assets/css/icons.css" rel="stylesheet" type="text/css">
         <link href="<?=base_url('')?>assets/css/style.css" rel="stylesheet" type="text/css">
+		<link href="<?=base_url('')?>assets/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+		
 		<link href="<?=base_url('')?>assets/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.css" rel="stylesheet">
 		<!-- DataTables -->

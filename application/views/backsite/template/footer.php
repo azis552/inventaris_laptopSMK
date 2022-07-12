@@ -39,7 +39,7 @@
         <script src="<?=base_url('')?>assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
         <script src="<?=base_url('')?>assets/plugins/bootstrap-filestyle/js/bootstrap-filestyle.min.js"></script>
         <script src="<?=base_url('')?>assets/plugins/bootstrap-touchspin/js/jquery.bootstrap-touchspin.min.js"></script>
-
+		<script src="<?=base_url('')?>assets/plugins/select2/js/select2.min.js"></script>
         <script src="<?=base_url('')?>assets/pages/dashboard.js"></script>
 		  <!-- init js -->
 		  <script src="<?=base_url('')?>assets/pages/datatables.init.js"></script>
@@ -62,3 +62,33 @@
 		<!-- jangan lupa untuk menambahkan unset agar sweet alert tidak muncul lagi saat di refresh -->
 		<?php unset($_SESSION['gagal']); } ?>
 </html>
+
+<script>
+	$(document).ready(function(){
+      var i=1;
+     $("#add_row").click(function(){
+      $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name[]' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail[]' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile[]' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
+
+      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      i++; 
+  });
+     $("#delete_row").click(function(){
+    	 if(i>1){
+		 $("#addr"+(i-1)).html('');
+		 i--;
+		 }
+	 });
+
+});
+function calc(elem)
+                {
+                    //let td = ($(elem).parent().attr("id"))
+
+                    let valFix  = ($(elem).closest('tr').find('td').eq(1).find('input').val());
+                    let valCal  = ($(elem).val());
+                    var calcVal = (valFix * valCal).toFixed(2);
+
+                    ($(elem).closest('tr').find('td').eq(3).find('input').val(calcVal))
+
+                }
+</script>

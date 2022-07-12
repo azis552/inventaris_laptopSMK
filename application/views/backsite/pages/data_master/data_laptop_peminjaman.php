@@ -6,6 +6,7 @@
 										<button type="button" class="btn btn-primary m-b-30" data-toggle="modal" data-target="#exampleModal">
 											Import
 										</button>
+										<a type="button" href="<?=base_url('')?>backsite/admin/cetak?table=laptop_pinjaman"  class="btn btn-success m-b-30">cetak</a>
 										<a type="button" href="<?=$link_reset?>"  class="btn btn-danger m-b-30">Reset Data</a>
 										<br>
 										<!-- Modal -->

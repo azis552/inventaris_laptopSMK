@@ -26,7 +26,7 @@
                             <li>
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-buffer"></i> <span> Transaksi <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
-                                    <li><a href="ui-alerts.html">Pengambilan Laptop Siswa</a></li>
+                                    <li><a href="<?=base_url('')?>backsite/admin/laptop_siswa">Pengambilan Laptop Siswa</a></li>
                                     <li><a href="ui-buttons.html">Peminjaman Laptop</a></li>
                                 </ul>
                             </li>

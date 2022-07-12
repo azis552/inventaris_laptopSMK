@@ -342,22 +342,68 @@ class Admin extends CI_Controller {
 			header('Location: '.base_url('').'backsite/admin/data_laptop_peminjaman'); 
 		}
 	}
-	public function barcode()
-	{
-		
-	}
+	
 	public function cetak()
 	{
-		$generator = new \Picqer\Barcode\BarcodeGeneratorPNG();
-		$pdf = new \Erkens\Fpdf\Barcode();
-		$pdf->AddPage();
+		$style = array(
+			'position' => '',
+			'align' => 'C',
+			'stretch' => false,
+			'fitwidth' => true,
+			'cellfitalign' => '',
+			'border' => true,
+			'hpadding' => 'auto',
+			'vpadding' => 'auto',
+			'fgcolor' => array(0,0,0),
+			'bgcolor' => false, //array(255,255,255),
+			'text' => true,
+			'font' => 'helvetica',
+			'fontsize' => 8,
+			'stretchtext' => 4
+		);
+		$pdf = new TCPDF();                 // create TCPDF object with default constructor args
+		$pdf->AddPage();                    // pretty self-explanatory
+		if($_GET['table'] == "laptop_pinjaman"){
+			$table = $this->db->get('tb_laptop_peminjaman')->result();
+			foreach($table as $i){
+				$pdf->Cell(0, 0, $i->merk." Proci : ".$i->processor." Ram : ".$i->ram." VGA : ".$i->vga, 0, 1);
+				$pdf->Ln(2);
+				$pdf->write1DBarcode($i->id_laptop, 'C39', '', '', '', 20, 0.4, $style, 'N');
+	
+				$pdf->Ln(2);
+				
+			}
+			$pdf->lastPage();
+			$pdf->Output('hello_world.pdf');    // send the file inline to the browser (default).
+		}else{
+			$this->db->select('*');
+			$this->db->from('tb_laptop_siswa');
+			$this->db->join('tb_siswa', 'tb_siswa.id_siswa = tb_laptop_siswa.id_siswa','left');
+			$table  = $this->db->get()->result();
+			foreach($table as $i){
+				$pdf->Cell(0, 0, $i->id_laptop." " .$i->nama_siswa." ".$i->kelas_siswa, 0, 1);
+				$pdf->write1DBarcode($i->id_siswa, 'C39', '', '', '', 18, 0.4, $style, 'N');
+	
+				$pdf->Ln(2);
+			}
+			
+				$pdf->lastPage();
+				$pdf->Output('hello_world.pdf');    // send the file inline to the browser (default).
+		}
 		
-		$pdf->SetFont('Arial','B',16);
 		
-		$code='1234567';
-		$pdf->code39(10,10,$code,110,15);
 		
-		$pdf->Output();
+	}
+	// transaksi
+
+	public function laptop_siswa()
+	{
+		$config['page'] = 'Pengambilan Laptop Siswa';
+		$data['data_laptop_peminjaman'] = $this->data_master_model->select_laptop_peminjaman()->result();
+        $this->load->view('backsite/template/header');
+		$this->load->view('backsite/template/sidebar',$config);
+		$this->load->view('backsite/pages/transaksi/laptop_siswa',$data);
+		$this->load->view('backsite/template/footer');
 	}
 }
 

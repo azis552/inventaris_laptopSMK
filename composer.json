@@ -14,7 +14,8 @@
 		"php": ">=5.3.7",
 		"phpoffice/phpspreadsheet": "^1.23",
 		"picqer/php-barcode-generator": "^2.2",
-		"erkens/fpdf-barcode": "^2.1"
+		"erkens/fpdf-barcode": "^2.1",
+		"tecnickcom/tcpdf": "^6.2.13"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
