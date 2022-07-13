@@ -43,10 +43,11 @@
         <script src="<?=base_url('')?>assets/pages/dashboard.js"></script>
 		  <!-- init js -->
 		  <script src="<?=base_url('')?>assets/pages/datatables.init.js"></script>
+		  <script src="<?=base_url('')?>assets/plugins/sweet-alert2/sweetalert2.min.js"></script>
+        <script src="<?=base_url('')?>assets/pages/sweet-alert.init.js"></script>
 		  <script src="<?=base_url('')?>assets/pages/form-advanced.js"></script>
         <!-- App js -->
         <script src="<?=base_url('')?>assets/js/app.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
     </body>
  <!-- END wrapper -->
  		<?php if(@$_SESSION['sukses']){ ?>
@@ -73,16 +74,44 @@
 					});
 					var form=$("#myForm");
 		$("#btn_simpan").click(function(){
-			
+			var id_guru  = $('.nama_guru').val();
+			var kegiatan = $('#kegiatan').val();
+			var id_siswa = $("input[name='id_siswa[]']")
+              .map(function(){return $(this).val();}).get();
+			  var id_laptop = $("input[name='id_laptop[]']")
+              .map(function(){return $(this).val();}).get();
 			$.ajax({
 					type:"POST",
 					url:"<?=base_url()?>backsite/admin/trans_pengambilan_laptop",
-					data:$("#myForm").serialize(),
+					data:{ id_siswa : id_siswa,
+							id_laptop : id_laptop,
+							id_guru : id_guru,
+							kegiatan :kegiatan},
 					success: function(response){
-						console.log(response);  
+						if(response == "true"){
+							
+							swal({
+								title: 'Berhasil Disimpan',
+								text: 'Segera Dikembalikan',
+								timer: 1000
+							}).then(
+								function () {
+								},
+								// handling the promise rejection
+								function (dismiss) {
+									if (dismiss === 'timer') {
+										location.reload();
+									}
+								}
+							)
+
+							
+							
+						} 
 					}
 				});
 		});
+	
 	});
 	var i=1;
 function calc(elem)
@@ -101,10 +130,12 @@ function calc(elem)
 					nama = res[0].nama_siswa;
 					kelas = res[0].kelas_siswa;
 					laptop = res[0].merk+" "+res[0].ram;
+					id_laptop = res[0].id_laptop;
 					($(elem).closest('tr').find('td').eq(2).find('input').val(nama));
 					($(elem).closest('tr').find('td').eq(3).find('input').val(kelas));
-					($(elem).closest('tr').find('td').eq(4).find('input').val(laptop));
-					$('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='id_siswa[]' required  onblur='calc(this)' type='text' placeholder='id_siswa' class='form-control input-md'  /> </td><td><input required  name='nama_siswa[]' type='text' placeholder='Nama Siswa'  class='form-control input-md'></td><td><input required name='kelas_siswa[]' type='text' placeholder='kelas_siswa'  class='form-control input-md'></td><td><input required name='laptop_siswa[]' type='text' placeholder='laptop'  class='form-control input-md'></td>");
+					($(elem).closest('tr').find('td').eq(4).find('input').val(id_laptop));
+					($(elem).closest('tr').find('td').eq(5).find('input').val(laptop));
+					$('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='id_siswa[]' required  onblur='calc(this)' type='text' placeholder='id_siswa' class='form-control input-md'  > </td><td><input required  name='nama_siswa[]' type='text' placeholder='Nama Siswa' readonly class='form-control input-md'></td><td><input required name='kelas_siswa[]' readonly type='text' placeholder='kelas_siswa'  class='form-control input-md'></td><td><input required name='id_laptop[]' readonly type='text' placeholder='laptop'  class='form-control input-md'></td><td><input required name='laptop_siswa[]' readonly type='text' placeholder='laptop'  class='form-control input-md'></td>");
 
 					$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
 					i++; 

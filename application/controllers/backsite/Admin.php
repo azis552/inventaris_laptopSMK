@@ -417,7 +417,29 @@ class Admin extends CI_Controller {
 	}
 	public function trans_pengambilan_laptop()
 	{
-		var_dump($_POST);die;
+		$nilai= 0;
+		$data = 0;
+		for($i=0; $i<= count($_POST['id_laptop']);$i++ ){
+			if($_POST['id_laptop'][$i] == ''){
+				$i = count($_POST['id_laptop']);
+			}else{
+				$data++;
+				$id_laptop =$_POST['id_laptop'][$i];
+				$id_siswa =	$_POST['id_siswa'][$i];
+				$id_guru =	$_POST['id_guru'];
+				$kegiatan = $_POST['kegiatan'];
+				$query = $this->db->query("insert into tb_pengambilan (id_siswa,id_guru,mapel_kegiatan,id_laptop) values ('".$id_siswa."','".$id_guru."','".$kegiatan."','".$id_laptop."')");
+				if($query == true){
+					$nilai++;
+				}
+			}
+		
+		}
+		if($nilai ==  $data){
+			echo "true";
+		}else{
+			echo  "falsa";
+		}	
 	}
 }
 

@@ -18,7 +18,7 @@
                                                 <div class="form-group">
 													<label class="control-label">Nama Guru</label>
             
-													<select required class="select2 form-control select2-multiple" name="nama_guru" multiple="multiple" data-placeholder="Choose ...">
+													<select required class="select2 form-control select2-multiple nama_guru" name="nama_guru" data-placeholder="Choose ...">
 														<?php foreach($data_guru as $i){?>
 															<option value="<?=$i->id_guru?>"><?=$i->nama?></option>
 														<?php }?>
@@ -28,7 +28,7 @@
             
                                                 <div class="form-group">
                                                     <label>Kegiatan/Mapel</label>
-                                                    <input type="text" class="form-control" name="kegiatan" required placeholder="Type something"/>
+                                                    <input type="text" class="form-control" name="kegiatan" id="kegiatan" required placeholder="Type something"/>
                                                 </div>
                                                 
                                                 
@@ -62,6 +62,9 @@
 							Kelas
 						</th>
 						<th class="text-center">
+							Id Laptop
+						</th>
+						<th class="text-center">
 							Laptop
 						</th>
 					</tr>
@@ -75,13 +78,16 @@
 						<input type="text" required  name='id_siswa[]'  placeholder='id_siswa'  onblur="calc(this)"  class="form-control"/>
 						</td>
 						<td>
-						<input type="text" required name='nama_siswa[]' placeholder='nama_siswa'  class="form-control"/>
+						<input type="text" required name='nama_siswa[]' placeholder='nama_siswa' readonly class="form-control"/>
 						</td>
 						<td>
-						<input type="text" required name='kelas_siswa[]' placeholder='kelas_siswa' class="form-control"/>
+						<input type="text" required name='kelas_siswa[]' placeholder='kelas_siswa' readonly class="form-control"/>
 						</td>
 						<td>
-						<input type="text" required name='laptop_siswa[]' placeholder='laptop_siswa' class="form-control"/>
+						<input type="text" required name='id_laptop[]' placeholder='Id Laptop' readonly class="form-control"/>
+						</td>
+						<td>
+						<input type="text" required name='laptop_siswa[]' placeholder='laptop_siswa' readonly class="form-control"/>
 						</td>
 					</tr>
                     <tr id='addr1'></tr>
