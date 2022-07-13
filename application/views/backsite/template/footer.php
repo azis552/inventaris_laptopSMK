@@ -65,30 +65,57 @@
 
 <script>
 	$(document).ready(function(){
-      var i=1;
-     $("#add_row").click(function(){
-      $('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='name[]' type='text' placeholder='Name' class='form-control input-md'  /> </td><td><input  name='mail[]' type='text' placeholder='Mail'  class='form-control input-md'></td><td><input  name='mobile[]' type='text' placeholder='Mobile'  class='form-control input-md'></td>");
-
-      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
-      i++; 
-  });
-     $("#delete_row").click(function(){
-    	 if(i>1){
-		 $("#addr"+(i-1)).html('');
-		 i--;
-		 }
-	 });
-
-});
+		$("#delete_row").click(function(){
+						if(i>1){
+						$("#addr"+(i-1)).html('');
+						i--;
+						}
+					});
+					var form=$("#myForm");
+		$("#btn_simpan").click(function(){
+			
+			$.ajax({
+					type:"POST",
+					url:"<?=base_url()?>backsite/admin/trans_pengambilan_laptop",
+					data:$("#myForm").serialize(),
+					success: function(response){
+						console.log(response);  
+					}
+				});
+		});
+	});
+	var i=1;
 function calc(elem)
-                {
-                    //let td = ($(elem).parent().attr("id"))
+			
+        {
+					
+			id = $(elem).closest('tr').find('td').eq(1).find('input').val();	
+			
+			$.ajax({
+				type:"POST",
+				url: "<?=base_url('')?>backsite/admin/laptop_siswa_pengambilan",
+				data: { id_siswa: id },
+				dataType: 'json',
+				success: function(res){
+					console.log(res);
+					nama = res[0].nama_siswa;
+					kelas = res[0].kelas_siswa;
+					laptop = res[0].merk+" "+res[0].ram;
+					($(elem).closest('tr').find('td').eq(2).find('input').val(nama));
+					($(elem).closest('tr').find('td').eq(3).find('input').val(kelas));
+					($(elem).closest('tr').find('td').eq(4).find('input').val(laptop));
+					$('#addr'+i).html("<td>"+ (i+1) +"</td><td><input name='id_siswa[]' required  onblur='calc(this)' type='text' placeholder='id_siswa' class='form-control input-md'  /> </td><td><input required  name='nama_siswa[]' type='text' placeholder='Nama Siswa'  class='form-control input-md'></td><td><input required name='kelas_siswa[]' type='text' placeholder='kelas_siswa'  class='form-control input-md'></td><td><input required name='laptop_siswa[]' type='text' placeholder='laptop'  class='form-control input-md'></td>");
 
-                    let valFix  = ($(elem).closest('tr').find('td').eq(1).find('input').val());
-                    let valCal  = ($(elem).val());
-                    var calcVal = (valFix * valCal).toFixed(2);
+					$('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+					i++; 
+				},
+				error: function () {
+					($(elem).closest('tr').find('td').eq(1).find('input').val(''));
+					swal("Gagal !", id+"tidak ditemukan data laptop", "error");
+				},
+			});		
+			
+            
 
-                    ($(elem).closest('tr').find('td').eq(3).find('input').val(calcVal))
-
-                }
+        }
 </script>

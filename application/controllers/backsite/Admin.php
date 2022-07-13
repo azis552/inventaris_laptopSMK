@@ -398,12 +398,26 @@ class Admin extends CI_Controller {
 
 	public function laptop_siswa()
 	{
+		$data['data_guru'] = $this->data_master_model->select_guru()->result();
 		$config['page'] = 'Pengambilan Laptop Siswa';
 		$data['data_laptop_peminjaman'] = $this->data_master_model->select_laptop_peminjaman()->result();
         $this->load->view('backsite/template/header');
 		$this->load->view('backsite/template/sidebar',$config);
 		$this->load->view('backsite/pages/transaksi/laptop_siswa',$data);
 		$this->load->view('backsite/template/footer');
+	}
+	public function laptop_siswa_pengambilan(){
+		$this->db->where('id_siswa',$_POST['id_siswa']);
+		$laptop_siswa = $this->db->get('v_laptop_siswa')->result();
+		if($laptop_siswa == null ){
+			die;
+		}
+		echo json_encode($laptop_siswa);
+
+	}
+	public function trans_pengambilan_laptop()
+	{
+		var_dump($_POST);die;
 	}
 }
 
