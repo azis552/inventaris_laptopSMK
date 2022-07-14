@@ -27,7 +27,9 @@
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-buffer"></i> <span> Transaksi <span class="float-right menu-arrow"><i class="mdi mdi-plus"></i></span> </span> </a>
                                 <ul class="submenu">
                                     <li><a href="<?=base_url('')?>backsite/admin/laptop_siswa">Pengambilan Laptop Siswa</a></li>
-                                    <li><a href="ui-buttons.html">Peminjaman Laptop</a></li>
+									<li><a href="<?=base_url('')?>backsite/admin/riwayat_laptop?table=tb_pengambilan">Riwayat Pengambilan</a></li>
+									<li><a href="<?=base_url('')?>backsite/admin/laptop_peminjaman">Peminjaman Laptop</a></li>
+									<li><a href="<?=base_url('')?>backsite/admin/riwayat_laptop?table=tb_peminjaman">Riwayat Peminjaman</a></li>
                                 </ul>
                             </li>
 

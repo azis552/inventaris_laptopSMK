@@ -417,6 +417,7 @@ class Admin extends CI_Controller {
 	}
 	public function trans_pengambilan_laptop()
 	{
+	
 		$nilai= 0;
 		$data = 0;
 		for($i=0; $i<= count($_POST['id_laptop']);$i++ ){
@@ -438,8 +439,45 @@ class Admin extends CI_Controller {
 		if($nilai ==  $data){
 			echo "true";
 		}else{
-			echo  "falsa";
+			echo  "false";
 		}	
+	}
+	public function riwayat_laptop()
+	{
+		$table = $_GET['table'];
+		$this->db->select('id_pengambilan,nama_siswa,kelas_siswa,nama,mapel_kegiatan,waktu_pengambilan,waktu_pengembalian');
+		$this->db->from($table);
+		$this->db->join('tb_siswa', $table.'.id_siswa = tb_siswa.id_siswa');
+		$this->db->join('tb_guru', $table.'.id_guru = tb_guru.id_guru');
+		$this->db->join('tb_laptop_siswa', $table.'.id_laptop = tb_laptop_siswa.id_laptop');
+		
+		$data['data_pengambilan'] = $this->db->get()->result();
+		$config['page'] = 'Pengambilan Laptop Siswa';
+        $this->load->view('backsite/template/header');
+		$this->load->view('backsite/template/sidebar',$config);
+		$this->load->view('backsite/pages/transaksi/riwayat_pengambilan',$data);
+		$this->load->view('backsite/template/footer');
+	}
+	public function kembalikan()
+	{
+		$id = $_GET['id'];
+		$table = $_GET['table'];
+		$this->db->set('waktu_pengembalian', 'now()',FALSE);
+		$this->db->where('id_pengambilan', $id);
+		$query = $this->db->update($table);
+		$_SESSION["sukses"] = "Berhasil Dikembalikan ";
+		//redirect ke halaman index.php
+		header('Location: '.base_url('').'backsite/admin/riwayat_laptop'); 
+	}
+	public function laptop_peminjaman()
+	{
+		$data['data_guru'] = $this->data_master_model->select_guru()->result();
+		$config['page'] = 'Pengambilan Laptop Siswa';
+		$data['data_laptop_peminjaman'] = $this->data_master_model->select_laptop_peminjaman()->result();
+        $this->load->view('backsite/template/header');
+		$this->load->view('backsite/template/sidebar',$config);
+		$this->load->view('backsite/pages/transaksi/laptop_peminjaman',$data);
+		$this->load->view('backsite/template/footer');
 	}
 }
 
